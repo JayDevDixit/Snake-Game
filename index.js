@@ -107,7 +107,9 @@ function eatFood() {
 }
 
 function resetGame() {
-  alert("GameOver");
+  alert(
+    `Game Over\nYour Score = ${score}\nYour Time = ${minute} Minutes ${second} seconds\nHighScore = ${highscore}`
+  );
   hiss.play();
   snake = [
     {
