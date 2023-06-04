@@ -2,6 +2,7 @@ const crash = new Audio("crash.mp3");
 const hiss = new Audio("hiss.mp3");
 hiss.loop = true;
 const swallow = new Audio("swallow.mp3");
+let headingElement = document.getElementById('heading')
 let total_row = getComputedStyle(document.documentElement).getPropertyValue(
   "--grid-rows"
 );
@@ -37,7 +38,7 @@ let second = 0;
 speedElement.innerHTML = `Speed ${speed}`;
 highscoreElement.innerHTML = `HighScore ${highscore}`;
 
-hiss.play();
+setTimeout(()=> hiss.play(),1000*10)
 
 function main(ctime) {
   window.requestAnimationFrame(main);
@@ -123,6 +124,7 @@ function resetGame() {
   speed = 3;
   speedElement.innerHTNL = `Speed ${speed}`;
   scoreElement.innerHTML = `Score ${score}`;
+  headingElement.innerHTML = 'Welcome to Snake Game'
   second = 0;
   minute = 0;
 }
@@ -145,31 +147,46 @@ window.addEventListener("keydown", (event) => {
   // velocity.x = 1
   // else
   // velocity.y = 1
-  if (event.key == "ArrowUp") velocity = { x: 0, y: -1 };
-  if (event.key == "ArrowDown") velocity = { x: 0, y: 1 };
-  if (event.key == "ArrowLeft") velocity = { x: -1, y: 0 };
-  if (event.key == "ArrowRight") velocity = { x: 1, y: 0 };
-  console.log(velocity);
+  if (event.key == "ArrowUp"){
+  velocity = { x: 0, y: -1 };
+  headingElement.innerHTML = 'Moving Upward <i class="fa-solid fa-arrow-up"></i>'
+  }
+  if (event.key == "ArrowDown") {
+  velocity = { x: 0, y: 1 };
+  headingElement.innerHTML = 'Moving Downward <i class="fa-solid fa-arrow-down"></i>'
+  }
+  if (event.key == "ArrowLeft") {
+  velocity = { x: -1, y: 0 };
+  headingElement.innerHTML = 'Moving Left <i class="fa-solid fa-arrow-left">'
+  }
+  if (event.key == "ArrowRight") {
+  velocity = { x: 1, y: 0 };
+  headingElement.innerHTML = 'Moving Right <i class="fa-solid fa-arrow-right-long animate"></i>'
+  }
 });
 
 up = document.getElementById("up");
 up.addEventListener("click", () => {
   velocity = { x: 0, y: -1 };
+  headingElement.innerHTML = 'Moving Upward <i class="fa-solid fa-arrow-up"></i>'
 });
 
 down = document.getElementById("down");
 down.addEventListener("click", () => {
   velocity = { x: 0, y: 1 };
+  headingElement.innerHTML = 'Moving Downward <i class="fa-solid fa-arrow-down"></i>'
 });
 
 left = document.getElementById("left");
 left.addEventListener("click", () => {
   velocity = { x: -1, y: 0 };
+  headingElement.innerHTML = 'Moving Left <i class="fa-solid fa-arrow-left">'
 });
 
 right = document.getElementById("right");
 right.addEventListener("click", () => {
   velocity = { x: 1, y: 0 };
+  headingElement.innerHTML = 'Moving Right <i class="fa-solid fa-arrow-right-long animate"></i>'
 });
 
 setInterval(() => {
