@@ -1,11 +1,9 @@
 :root {
   --container-width: 90vmin;
   --container-height: 100vmin;
-  --header-height: 5vmin;
-  --footer-height: 5vmin;
-  --board-height: calc(
-    var(--container-height) - var(--header-height) - var(--footer-height)
-  );
+  --header-height: 10vmin;
+  --footer-height: 40vmin;
+  --board-height: calc(var(--container-height));
   --grid-rows: 40;
   --grid-columns: 40;
 }
@@ -18,8 +16,9 @@ body {
   width: 100vw;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   background-color: black;
+  flex-direction: column;
 }
 #container {
   width: var(--container-width);
@@ -28,7 +27,8 @@ body {
   /* background-color: red; */
 }
 #header {
-  width: 100%;
+  border-radius: 3vmin;
+  width: 90vmin;
   height: var(--header-height);
   background-color: #293447;
   display: flex;
@@ -39,7 +39,9 @@ body {
   color: cyan;
 }
 #board {
+  /* filter: blur(20px); */
   width: 100%;
+  border-radius: 2vmin;
   height: var(--board-height);
   background-color: #212837;
   display: grid;
@@ -47,17 +49,20 @@ body {
   grid-template-columns: repeat(var(--grid-columns), 1fr);
 }
 #footer {
-  width: 100%;
+  width: 90vmin;
   height: var(--footer-height);
   background-color: #293447;
-  display: flex;
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: auto auto auto;
+  justify-items: center;
   align-items: center;
-  justify-content: space-around;
+  border-radius: 10vmin;
 }
 .food {
   background: cyan;
   border-radius: 50%;
-  animation:beat;
+  animation: beat;
   /* animation-duration: .1s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
@@ -66,38 +71,53 @@ body {
 .snake-head {
   background-color: purple;
   border-radius: 50%;
-  box-shadow: 0 0 .2rem #fff,
-              0 0 .2rem #fff,
-              0 0 2rem #bc13fe,
-              0 0 0.8rem #bc13fe,
-              0 0 2.8rem #bc13fe,
-              inset 0 0 1.3rem #bc13fe;
+  box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #bc13fe,
+    0 0 0.8rem #bc13fe, 0 0 2.8rem #bc13fe, inset 0 0 1.3rem #bc13fe;
 }
 
 .snake-body {
   background-color: purple;
-  box-shadow: 0 0 2rem #bc13fe,
-              0 0 0.8rem #bc13fe,
-              0 0 2.8rem #bc13fe,
-              inset 0 0 1.3rem #bc13fe;
+  box-shadow: 0 0 2rem #bc13fe, 0 0 0.8rem #bc13fe, 0 0 2.8rem #bc13fe,
+    inset 0 0 1.3rem #bc13fe;
 }
-#footer button{
-  width: 25%;
-  height: 90%;
-  background:#293447;
+#footer button {
+  width: 65%;
+  height: 80%;
+  background: #293447;
   border: none;
   color: cyan;
+  border: 1px solid cyan;
+  border-radius: 10%;
+  transition: all 1s;
 }
-#footer button i:active{
-  transform:scale(2);
+#footer button:focus {
+  transform: scale(1.2);
+  /* background-image: linear-gradient(to right bottom, rgb(0, 183, 255), rgb(255, 48, 255));
+  background-color: cyan; */
+  background: linear-gradient(
+    43deg,
+    rgb(65, 88, 208) 0%,
+    rgb(200, 80, 192) 46%,
+    rgb(255, 204, 112) 100%
+  );
+  box-shadow: 0 0 0.3em rgba(255, 255, 255, 0.5);
+
+  color: white;
 }
-#footer button i:hover{
-  color: gray;
+#footer button i {
+  transform: scale(2);
 }
-#roller::before{
+#footer button i:hover {
+  color: white;
+}
+#roller::before {
   content: "";
   display: block;
-  background-image: linear-gradient(270deg, rgb(0, 183, 255), rgb(255, 48, 255));
+  background-image: linear-gradient(
+    270deg,
+    rgb(0, 183, 255),
+    rgb(255, 48, 255)
+  );
   position: absolute;
   z-index: -3;
   width: 60%;
@@ -107,25 +127,42 @@ body {
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-#roller{
+#roller {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color:#212837;
+  background-color: #212837;
   inset: -3px;
   position: absolute;
   z-index: -1;
   overflow: hidden;
-
+}
+#heading {
+  color: cyan;
 }
 @keyframes rotate {
-  100%{
+  100% {
     transform: rotate(360deg);
   }
 }
 @keyframes beat {
-  100%{
+  100% {
     transform: scale(2);
   }
- 
+}
+#up {
+  grid-row-start: 1;
+  grid-column-start: 2;
+}
+#down {
+  grid-row-start: 3;
+  grid-column-start: 2;
+}
+#left {
+  grid-row-start: 2;
+  grid-column-start: 1;
+}
+#right {
+  grid-row-start: 2;
+  grid-column-start: 3;
 }
